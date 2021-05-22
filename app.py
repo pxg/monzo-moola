@@ -14,10 +14,9 @@ def get_current_account_balance(account_id, access_token):
     """
     Get current account balance in pence from Monzo
     """
-    # TODO: f strings
     response = requests.get(
-        "https://api.monzo.com/balance?account_id={}".format(account_id),
-        headers={"Authorization": "Bearer {}".format(access_token)},
+        f"https://api.monzo.com/balance?account_id={account_id}",
+        headers={"Authorization": f"Bearer {access_token}"},
     )
     return response.json()["balance"]
 
@@ -27,10 +26,9 @@ def write_to_google_sheets(balance):
 
 
 def get_pots_data(account_id, access_token):
-    # TODO: f string
     response = requests.get(
-        "https://api.monzo.com/pots?current_account_id={}".format(account_id),
-        headers={"Authorization": "Bearer {}".format(access_token)},
+        f"https://api.monzo.com/pots?current_account_id={account_id}",
+        headers={"Authorization": f"Bearer {access_token}"},
     )
     return response.json()
 

@@ -1,7 +1,3 @@
-# F strings
-
-# Rename function
-
 # Push to Github
 
 # Switch master to main
