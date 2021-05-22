@@ -30,11 +30,11 @@ def get_pots_data(account_id, access_token):
         f"https://api.monzo.com/pots?current_account_id={account_id}",
         headers={"Authorization": f"Bearer {access_token}"},
     )
-    return response.json()
+    return response.json()["pots"]
 
 
 def get_savings_stash_balance(account_id, access_token):
-    pots = get_pots_data(account_id, access_token)["pots"]
+    pots = get_pots_data(account_id, access_token)
     savings_stash_pot_id = "pot_00009dUcQOPx5aOmh6mQPB"
     return next(pot["balance"] for pot in pots if pot["id"] == savings_stash_pot_id)
 

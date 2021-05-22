@@ -11,3 +11,5 @@
 # Bump requirements
 
 # Bump Python version
+
+# Update Sublime text linter for newer Python version
