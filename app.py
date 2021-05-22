@@ -33,7 +33,7 @@ def write_to_google_sheets(balance):
     pass
 
 
-def get_pots_info(account_id, access_token):
+def get_pots_data(account_id, access_token):
     response = requests.get(
         "https://api.monzo.com/pots?current_account_id={}".format(account_id),
         headers={"Authorization": "Bearer {}".format(access_token)},
@@ -41,14 +41,16 @@ def get_pots_info(account_id, access_token):
     return response.json()
 
 
+def get_savings_stash_balance(account_id, access_token):
+    response = get_pots_data(account_id, access_token)
+    # TODO: alternative to for loop?
+    for pot in response["pots"]:
+        if pot["id"] == "pot_00009dUcQOPx5aOmh6mQPB":
+            return pot["balance"]
+
+
 if __name__ == "__main__":
-    # balance = get_current_balance(
-    #     account_id=os.environ.get("MONZO_ACCOUNT_ID"),
-    #     access_token=os.environ.get("MONZO_ACCESS_TOKEN"),
-    # )
-    # print("balance in pence {}".format(balance))
-    # write_to_google_sheets(balance)
-    data = get_pots_info(
+    data = get_pots_data(
         account_id=os.environ.get("MONZO_ACCOUNT_ID"),
         access_token=os.environ.get("MONZO_ACCESS_TOKEN"),
     )
