@@ -16,3 +16,8 @@ It's recommended you use https://direnv.net/ and a `.envrc` file to do this.
 ```
 py.test tests.py
 ```
+
+To run the tests without hitting the live api:
+```
+py.test -m "not live_api" tests.py
+```

@@ -1,6 +1,6 @@
 import os
 
-from pytest import fixture
+from pytest import fixture, mark
 from freezegun import freeze_time
 
 from app import get_current_date, get_current_balance, get_savings_stash_balance
@@ -25,7 +25,7 @@ def test_get_current_date():
     assert day == 6
 
 
-# TODO: add mark live api
+@mark.live_api
 def test_get_current_balance(account_id, access_token):
     account_id = os.environ.get("MONZO_ACCOUNT_ID")
     access_token = os.environ.get("MONZO_ACCESS_TOKEN")
@@ -35,7 +35,7 @@ def test_get_current_balance(account_id, access_token):
     assert isinstance(balance, int) is True
 
 
-# TODO: add mark live api
+@mark.live_api
 def test_get_savings_stash_balance(account_id, access_token):
     balance = get_savings_stash_balance(account_id, access_token)
 
