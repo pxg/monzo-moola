@@ -1,8 +1,8 @@
-# Can I get balance with the pots?
+# TDD savings stash balance
+
+# TDD for adjusted account balance
 
 # Push to Github
-
-# Add black
 
 # Prank Sumby
 
