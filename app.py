@@ -10,8 +10,7 @@ def get_current_date():
     return now.year, now.month, now.day
 
 
-# TODO: rename get_current_account_balance
-def get_current_balance(account_id, access_token):
+def get_current_account_balance(account_id, access_token):
     """
     Get current account balance in pence from Monzo
     """
