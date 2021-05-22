@@ -3,7 +3,11 @@ import os
 from pytest import fixture, mark
 from freezegun import freeze_time
 
-from app import get_current_date, get_current_balance, get_savings_stash_balance
+from app import (
+    get_current_date,
+    get_current_balance,
+    get_savings_stash_balance,
+)
 
 
 @fixture

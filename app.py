@@ -5,25 +5,19 @@ from pprint import pprint
 import requests
 
 
-def get_balance_api_url(account_id):
-    """
-    Get Balance URL for Monzo API
-    """
-    # TODO: update to https://api.monzo.com/balance
-    return "https://api.getmondo.co.uk/balance?account_id={}".format(account_id)
-
-
 def get_current_date():
     now = datetime.datetime.now()
     return now.year, now.month, now.day
 
 
+# TODO: rename get_current_account_balance
 def get_current_balance(account_id, access_token):
     """
     Get current account balance in pence from Monzo
     """
+    # TODO: f strings
     response = requests.get(
-        get_balance_api_url(account_id),
+        "https://api.monzo.com/balance?account_id={}".format(account_id),
         headers={"Authorization": "Bearer {}".format(access_token)},
     )
     return response.json()["balance"]
@@ -34,6 +28,7 @@ def write_to_google_sheets(balance):
 
 
 def get_pots_data(account_id, access_token):
+    # TODO: f string
     response = requests.get(
         "https://api.monzo.com/pots?current_account_id={}".format(account_id),
         headers={"Authorization": "Bearer {}".format(access_token)},
@@ -42,11 +37,9 @@ def get_pots_data(account_id, access_token):
 
 
 def get_savings_stash_balance(account_id, access_token):
-    response = get_pots_data(account_id, access_token)
-    # TODO: alternative to for loop?
-    for pot in response["pots"]:
-        if pot["id"] == "pot_00009dUcQOPx5aOmh6mQPB":
-            return pot["balance"]
+    pots = get_pots_data(account_id, access_token)["pots"]
+    savings_stash_pot_id = "pot_00009dUcQOPx5aOmh6mQPB"
+    return next(pot["balance"] for pot in pots if pot["id"] == savings_stash_pot_id)
 
 
 if __name__ == "__main__":
